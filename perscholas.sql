@@ -27,4 +27,17 @@ on c.customerNumber=p.customerNumber
 where p.paymentDate>='2004-01-01'
 group by c.customerNumber;
 #YYYY-MM-DD
- 
+
+select c.customerName, p.productLine
+from customers c join orders o on c.customerNumber=o.customerNumber 
+join orderdetails o1 on o.orderNumber=o1.orderNumber
+join products p on o1.productCode=p.productCode
+join productlines p1 on p.productLine=p1.productLine
+where p1.productLine in ('Motorcycles', 'Trains');
+
+#same as above
+select customerName
+from customers join orders using(customerNumber)
+join orderdetails using(orderNumber)
+join products using(productCode)
+where productLine in ('Motorcycles', 'Trains');
